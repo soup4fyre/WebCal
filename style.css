@@ -1,0 +1,484 @@
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+
+  /* Background gradient */
+  background: linear-gradient(-45deg, #1d3977, #c8ceff, #48dbfb);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+
+  /* 🚫 Prevent horizontal scroll */
+  overflow-x: hidden;
+}
+
+
+#logo {
+  position: fixed;        /* fix it relative to viewport */
+  top: 20px;              /* distance from top edge */
+  left: 20px;             /* distance from left edge */
+  width: 60px;            /* adjust size */
+  height: auto;
+  z-index: 500;           /* higher than calculator (100) and side menu (200) */
+  border-radius: 12px;
+  padding: 5px;
+  background: rgba(255,255,255,0.1); /* glass effect */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* Glass shine effect on hover */
+#logo::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.3) 100%
+  );
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: all 0.5s;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+#logo:hover::before {
+  transform: rotate(45deg) translate(0%, 0%);
+}
+
+/* Dark overlay (doesn't touch calculator) */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2); /* adjust 0.4 = darkness */
+  z-index: 0;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Idle Animation *//* Idle Animation *//* Idle Animation *//* Idle Animation */
+
+#calculator-wrapper {
+  position: relative;
+}
+
+/* Cloud layer */
+
+.cloud {
+  position: absolute;
+  top: 20%;
+  left: 100vw;          /* start fully off-screen on the RIGHT */
+  width: 600px;
+  opacity: 0.6;
+  z-index: 1;           /* behind calculator */
+  animation: moveCloud linear infinite;
+}
+
+/* Different speeds + vertical positions */
+.cloud:nth-of-type(1) {
+  top: 30%;
+  animation-duration: 50s; /* slower */
+}
+
+.cloud:nth-of-type(2) {
+  top: 60%;
+  animation-duration: 90s; /* even slower */
+}
+
+/* Keyframes: right → left */
+@keyframes moveCloud {
+  from { left: 60vw; }    /* start off right */
+  to   { left: -1400px; }   /* fully off left (cloud width) */
+}
+
+/* Overlay text centered on calculator but in front of everything */
+#overlay-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;          /* full width */
+  height: 100%;         /* full height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertical center */
+  align-items: center;      /* horizontal center */
+  pointer-events: none;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1001;            /* above calculator (100) and logo (500) */
+}
+
+/* Show overlay when idle */
+#overlay-text.show {
+  opacity: 1;
+}
+
+#overlay-text h1 {
+  font-size: 6em;      
+  margin: 0;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-shadow: none;       
+}
+
+#overlay-text p {
+  font-size: 2em;          
+  margin: 5px 0 0 0;
+  text-shadow: none;       
+}
+
+
+#overlay-paragraph {
+  transition: opacity 0.5s ease; /* 1.5s fade */
+}
+
+/* Show overlay when idle */
+#overlay-text.show {
+  opacity: 1;
+}
+
+/* Calculator */
+#calculator {
+  position: relative;
+  width: 360px;
+  padding: 20px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(5, 80px);
+  grid-gap: 10px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  transition: opacity 0.5s ease;
+  z-index: 5;
+}
+
+#calculator.idle {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+#display {
+  grid-column: span 4;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 2em;
+  text-align: right;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+button {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.operator { background-color: #ff9500; color: #fff; }
+button.clear { background-color: #b1b1b1; color: #fff; }
+button.equal { background-color: #28a745; color: #fff; grid-column: span 2; }
+button.zero { grid-column: span 2; }
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Calculator container */
+#calculator {
+  position: relative;
+  width: 360px;         /* a bit wider than before */
+  min-height: 480px;    /* force height so buttons don’t overlap */
+  padding: 20px;
+  border-radius: 20px;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* Keep content spaced properly */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 10px;
+
+  /* Shadow */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 100;
+}
+
+
+/* Display */
+#display {
+  grid-column: span 4;
+  background: rgba(255, 255, 255, 0.2);   /* slightly stronger glass */
+  backdrop-filter: blur(12px);             /* more blur for frosted effect */
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;                             /* white text for better contrast */
+  font-size: 2em;
+  text-align: right;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* soft shadow for depth */
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+/* Optional: soft highlight inside the display */
+#display::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  filter: blur(10px);
+  opacity: 0.4;
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+/* Number pop animation */
+@keyframes numberPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }  /* grow */
+  100% { transform: scale(1); }
+}
+
+#display span.pop {
+  display: inline-block;   /* needed for transform */
+  animation: numberPop 0.2s ease;
+}
+
+/* Buttons - default (numbers) */
+button {
+  background: rgba(255, 255, 255, 0.2); /* transparent glass */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);           /* frosted glass */
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  color: #fff;                           /* white text looks good on glass */
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Highlight shine effect */
+button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.3) 100%
+  );
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: all 0.5s;
+  pointer-events: none;
+}
+
+button:hover::before {
+  transform: rotate(45deg) translate(0%, 0%);
+}
+
+
+
+/* Operator buttons */
+button.operator {
+  background-color: #ff9500;
+  color: #fff;
+}
+
+button.operator:hover {
+  background-color: #e08900;
+}
+
+/* Clear button */
+button.clear {
+  background-color: #b1b1b1;
+  color: #fff;
+}
+
+button.clear:hover {
+  background-color: #ee1127;
+}
+
+/* Equals button */
+button.equal {
+  background-color: #28a745;
+  color: #fff;
+  grid-column: span 2;
+}
+/* Make grid more calculator-like */
+#calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(5, 80px);
+  grid-gap: 10px;
+}
+
+/* Zero spans 2 columns */
+.zero {
+  grid-column: span 2;   /* already wider */
+  grid-row: span 6;      /* now taller */
+}
+
+/* Equals button also spans 2 columns */
+button.equal {
+  grid-column: span 2;
+  grid-row: span 6;
+  background-color: #b1b1b1;
+}
+
+button.equal:hover {
+  background-color: #1ab63f;
+}
+
+button.delete {
+  background-color: #b1b1b1;
+  color: #fff;
+}
+
+button.delete:hover {
+  background-color: #006fe6;
+}
+
+
+/* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR */
+/* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR */
+
+
+/* Hamburger container */
+/* Hamburger container */
+.hamburger-menu {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 35px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 300; /* above calculator */
+}
+
+.hamburger-menu .bar {
+  height: 4px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Glassy side menu */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px; /* hidden initially */
+  width: 250px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.25);
+  transition: right 0.4s ease;
+  z-index: 200;
+  padding-top: 60px;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu ul li {
+  margin: 20px 0;
+}
+
+.side-menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  display: block;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.side-menu ul li a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Active state for menu */
+.side-menu.active {
+  right: 0;
+}
+
+.side-menu h2 {
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+#historyList {
+  list-style: none;
+  padding: 10px 20px;
+  margin: 0;
+  max-height: calc(100% - 60px); /* leave space for header */
+  overflow-y: auto;              /* scroll if too long */
+}
+
+#historyList li {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1); /* glassy item */
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  word-wrap: break-word;
+}
