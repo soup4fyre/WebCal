@@ -1,0 +1,525 @@
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+
+  /* Background Color Anim */
+  background: linear-gradient(-45deg, #1d3977, #c8ceff, #48dbfb);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+
+  overflow-x: hidden;
+}
+
+
+#logo {
+  position: fixed;      
+  top: 20px;             
+  left: 20px;           
+  width: 60px;            
+  height: auto;
+  z-index: 500;           
+  border-radius: 12px;
+  padding: 5px;
+  background: rgba(255,255,255,0.1); 
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* Glass Shine Hover FX */
+#logo::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.3) 100%
+  );
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: all 0.5s;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+#logo:hover::before {
+  transform: rotate(45deg) translate(0%, 0%);
+}
+
+/* BG Gradient */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2); /* Adjusment Section */
+  z-index: 0;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Idle Animation *//* Idle Animation *//* Idle Animation *//* Idle Animation */
+
+#calculator-wrapper {
+  position: relative;
+}
+
+/* Cloud layer *//* Cloud layer *//* Cloud layer *//* Cloud layer *//* Cloud layer */
+/* Cloud layer *//* Cloud layer *//* Cloud layer *//* Cloud layer *//* Cloud layer */
+
+.cloud {
+  position: absolute;
+  top: 20%;
+  left: 100vw;          
+  width: 600px;
+  opacity: 0.6;
+  z-index: 1;           
+  animation: moveCloud linear infinite;
+}
+
+/* Cloud Anim Speed */
+.cloud:nth-of-type(1) {
+  top: 30%;
+  animation-duration: 50s; 
+}
+
+.cloud:nth-of-type(2) {
+  top: 60%;
+  animation-duration: 90s; 
+}
+
+@keyframes moveCloud {
+  from { left: 60vw; }    
+  to   { left: -1400px; }   
+}
+
+/* Idle Name Ko *//* Idle Name Ko *//* Idle Name Ko *//* Idle Name Ko *//* Idle Name Ko */
+
+#overlay-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;          
+  height: 100%;        
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;      
+  pointer-events: none;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1001;            
+}
+
+/* Show Overlay When Idle */
+#overlay-text.show {
+  opacity: 1; /* Adjusment */
+}
+
+#overlay-text h1 {
+  font-size: 6em;      
+  margin: 0;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-shadow: none;       
+}
+
+#overlay-text p {
+  font-size: 2em;          
+  margin: 5px 0 0 0;
+  text-shadow: none;       
+}
+
+
+#overlay-paragraph {
+  transition: opacity 0.5s ease; /* Adjusment */
+}
+
+#overlay-text.show {
+  opacity: 1;
+}
+
+/* Calculator *//* Calculator *//* Calculator *//* Calculator *//* Calculator *//* Calculator */
+/* Calculator *//* Calculator *//* Calculator *//* Calculator *//* Calculator *//* Calculator */
+
+#calculator {
+  position: relative;
+  width: 360px;
+  padding: 20px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(5, 80px);
+  grid-gap: 10px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  transition: opacity 0.5s ease;
+  z-index: 5;
+}
+
+#calculator.idle {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+#display {
+  grid-column: span 4;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 2em;
+  text-align: right;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+button {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.operator { background-color: #ff9500; color: #fff; }
+button.clear { background-color: #b1b1b1; color: #fff; }
+button.equal { background-color: #28a745; color: #fff; grid-column: span 2; }
+button.zero { grid-column: span 2; }
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Calculator Container *//* Calculator Container *//* Calculator Container *//* Calculator Container */
+/* Calculator Container *//* Calculator Container *//* Calculator Container *//* Calculator Container */
+
+#calculator {
+  position: relative;
+  width: 360px;         
+  min-height: 480px;    
+  padding: 20px;
+  border-radius: 20px;
+
+  /* Glass FX */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 10px;
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 100;
+}
+
+
+/* Display */
+#display {
+  grid-column: span 4;
+  background: rgba(255, 255, 255, 0.2);   
+  backdrop-filter: blur(12px);             
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;                             
+  font-size: 2em;
+  text-align: right;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+/* Optional: soft highlight inside the display */
+#display::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  filter: blur(10px);
+  opacity: 0.4;
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+/* Number pop animation *//* Number pop animation */
+/* Number pop animation *//* Number pop animation */
+
+@keyframes numberPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }  
+  100% { transform: scale(1); }
+}
+
+#display span.pop {
+  display: inline-block;   
+  animation: numberPop 0.2s ease;
+}
+
+/* Buttons *//* Buttons *//* Buttons *//* Buttons *//* Buttons *//* Buttons *//* Buttons */
+/* Buttons *//* Buttons *//* Buttons *//* Buttons *//* Buttons *//* Buttons *//* Buttons */
+
+button {
+  background: rgba(255, 255, 255, 0.2); /* Glass FX */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);           /* Glass FX2 */
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  color: #fff;                         
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Shine FX *//* Button Shine FX */
+/* Button Shine FX *//* Button Shine FX */
+
+button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.3) 100%
+  );
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: all 0.5s;
+  pointer-events: none;
+}
+
+button:hover::before {
+  transform: rotate(45deg) translate(0%, 0%);
+}
+
+
+/* Operator Buttons *//* Operator Buttons *//* Operator Buttons */
+/* Operator Buttons *//* Operator Buttons *//* Operator Buttons */
+
+button.operator {
+  background-color: #ff9500;
+  color: #fff;
+}
+
+button.operator:hover {
+  background-color: #e08900;
+}
+
+/* Clear button *//* Clear button *//* Clear button */
+/* Clear button *//* Clear button *//* Clear button */
+
+button.clear {
+  background-color: #b1b1b1;
+  color: #fff;
+}
+
+button.clear:hover {
+  background-color: #ee1127;
+}
+
+/* Equals button *//* Equals button *//* Equals button */
+/* Equals button *//* Equals button *//* Equals button */
+
+button.equal {
+  background-color: #28a745;
+  color: #fff;
+  grid-column: span 2;
+}
+/* Calc Grid */
+#calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(5, 80px);
+  grid-gap: 10px;
+}
+
+/* Grid Column */
+.zero {
+  grid-column: span 2;   
+  grid-row: span 6;      
+}
+
+button.equal {
+  grid-column: span 2;
+  grid-row: span 6;
+  background-color: #b1b1b1;
+}
+
+button.equal:hover {
+  background-color: #1ab63f;
+}
+
+button.delete {
+  background-color: #b1b1b1;
+  color: #fff;
+}
+
+button.delete:hover {
+  background-color: #006fe6;
+}
+
+
+/* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR */
+/* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR *//* HAMBURGERRR */
+
+
+.hamburger-menu {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 35px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 300; 
+}
+
+.hamburger-menu .bar {
+  height: 4px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Menu Bar *//* Menu Bar *//* Menu Bar *//* Menu Bar *//* Menu Bar */
+/* Menu Bar *//* Menu Bar *//* Menu Bar *//* Menu Bar *//* Menu Bar */
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.25);
+  transition: right 0.4s ease;
+  z-index: 200;
+  padding-top: 60px;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu ul li {
+  margin: 20px 0;
+}
+
+.side-menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  display: block;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.side-menu ul li a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.side-menu.active {
+  right: 0;
+}
+
+.side-menu h2 {
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+#historyList {
+  list-style: none;
+  padding: 10px 20px;
+  margin: 0;
+  max-height: calc(100% - 60px); 
+  overflow-y: auto;            
+}
+
+#historyList li {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  word-wrap: break-word;
+}
+
+/* Wrapper: put GIFs left & right of calculator 
+#calculator-wrapper {
+  display: flex;
+  align-items: center;     
+  justify-content: center; 
+  gap: 30px;               
+  margin-top: 50px;
+}
+
+.side-gif {
+  width: 300px;          
+  height: auto;
+}
+
+.left-gif {
+  margin-right:250px;    
+}
+
+.right-gif {
+  margin-left: 250px;     
+}
+
+.calculator-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+*/

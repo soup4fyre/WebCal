@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- LOGO -->
+<img src="Logo/Logo Portfolio.png" alt="Logo" id="logo">
+
+<!-- Hamburger Menu -->
+<div class="hamburger-menu" id="hamburger">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+<!-- Side Menu / History -->
+<div class="side-menu" id="sideMenu">
+  <h2>History</h2>
+  <ul id="historyList"></ul>
+</div>
+
+<!-- Calculator -->
+<div id="calculator-wrapper">
+
+  <!-- Left GIF 
+  <img src="Assets/Ad2.PNG" alt="Left GIF" class="side-gif left-gif">-->
+
+  <!-- Calculator -->
+  <div class="calculator-content">
+
+    <!-- Cloud -->
+    <img src="Assets/Clouds.png" alt="cloud1" class="cloud">
+    <img src="Assets/Clouds2.png" alt="cloud2" class="cloud">
+
+    <!-- Idle Name Ko -->
+    <div id="overlay-text">
+      <h1>JARO CACID</h1>
+      <p id="overlay-paragraph">Ayoko gumawa ng SciCal</p>
+    </div>
+
+    <!-- Calculator -->
+    <div id="calculator">
+      <div id="display"><span>0</span></div>
+
+      <button class="clear">C</button>
+      <button class="delete">DEL</button>
+      <button class="operator">/</button>
+      <button class="operator">x</button>
+
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button class="operator">+</button>
+
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button class="operator">-</button>
+
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>.</button>
+
+      <button class="zero">0</button>
+      <button class="equal">=</button>
+    </div>
+  </div>
+
+  <!-- Right GIF 
+  <img src="Assets/Ad1.jpg" alt="Right GIF" class="side-gif right-gif">-->
+
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
